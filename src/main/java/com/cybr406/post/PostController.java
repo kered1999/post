@@ -17,12 +17,17 @@ public class PostController {
 
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@Valid @RequestBody Post post){
-        return new ResponseEntity<>(postRepository.save(post), HttpStatus.CREATED);
+        return new ResponseEntity<Post>(postRepository.save(post), HttpStatus.CREATED);
     }
 
     @GetMapping("/posts")
-    public Page<Post> getPosts(Pageable pageable){
+    public Page<Post> getPosts( Pageable pageable){
         return postRepository.findAll(pageable);
     }
 
+    @GetMapping("/posts/{id}")
+    public Page<Post> getSinglePosts(@PathVariable(value = "id", required = false) long id, Pageable pageable){
+
+        return postRepository.findAll(pageable);
+    }
 }
